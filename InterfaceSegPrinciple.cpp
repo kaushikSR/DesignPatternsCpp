@@ -1,4 +1,6 @@
-/* Interface Segregation Principle
+/* 
+
+   ***Interface Segregation Principle***
 
  - Do not have complex interfaces where we force the concrete classes to implement all the abstract methods
  - Segregate the interfaces so that clients can only implement the interfaces that make sense for them

@@ -1,4 +1,6 @@
-/* LISKOV SUBSTITUTION PRINCIPLE
+/* 
+
+ ***LISKOV SUBSTITUTION PRINCIPLE***
 
 Objects in a program should be replaceable with instances of their subtypes
 w/o altering the correctness of the program

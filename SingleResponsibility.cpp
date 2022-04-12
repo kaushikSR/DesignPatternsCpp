@@ -1,4 +1,5 @@
-/* Single Responsibility Principle
+/* 
+  ***Single Responsibility Principle***
   - Each class must have only one reason to change
   - Limit the possibility of potential code breakage with new requirements
 
@@ -13,7 +14,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-//#include <boost/lexical_cast.hpp>
 using namespace std;
 
 struct Journal
@@ -48,11 +48,20 @@ void Journal::save(const string& filename)
     ofs << s << endl;
 }
 
-// Moving the save responsibility to a seperate class
-// as the persistence manager grows i.e add new journals or other types that need to be saved,
-// all changes will happen here and not in the journal class.
-// if we want to change from filestreams to databases, even that change can happen now without touching
-// the journal class
+/*
+ Moving the save responsibility to a seperate class
+ as the persistence manager grows i.e add new journals or other types that need to be saved,
+ all changes will happen here and not in the journal class.
+ if we want to change from filestreams to databases, even that change can happen now without touching
+ the journal class
+*/
+
+/*
+PersistenceManager has the single responsibility of saving the journal 
+which it takes in as parameter in the constructor.
+
+Any future changes to the save method will have no effect on the journal class.
+*/
 struct PersistenceManager
 {
   static void save(const Journal& j, const string& filename)

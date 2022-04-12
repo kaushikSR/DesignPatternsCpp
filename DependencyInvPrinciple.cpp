@@ -1,19 +1,28 @@
-﻿#include <iostream>
+﻿/*
+
+********Dependency inversion principle*********
+
+ A. High-level modules should not depend on low-level modules.
+    Both should depend on abstractions.
+ B. Abstractions should not depend on details. 
+    Details should depend on abstractions.
+
+• Low-level classes implement basic operations such as working with a disk, 
+  transferring data over a network, connecting to a database, etc.  
+• High-level classes contain business logic that directs low-level classes to do something.   
+
+*/
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include <tuple>
 using namespace std;
 
-// A. High-level modules should not depend on low-level modules.
-//    Both should depend on abstractions.
-// B. Abstractions should not depend on details. 
-//    Details should depend on abstractions.
-
-/*
-• Low-level classes implement basic operations such as working with a disk, 
-  transferring data over a network, connecting to a database, etc.  
-• High-level classes contain complex business logic that directs low-level classes to do something.   
-*/
+/***
+Here we are designing a software to find the 
+relationships between different people
+***/
 
 /*
  Relationships between people
@@ -30,14 +39,23 @@ struct Person
   string name;
 };
 
-// high -level abstraction.
-// low-level modules depend on high level abstractions. 
-struct RelationshipBrowser
+/* 
+RelationshipBrowser is high -level abstraction
+It has pure virtual functions which the low-level components will implement.
+*/
+struct RelationshipBrowser // high level abstract class 
 {
   virtual vector<Person> find_all_children_of(const string& name) = 0;
 };
 
-struct Relationships : RelationshipBrowser // low-level
+
+/*
+Relationships is a low level class that implements basic operations like
+add_parent_and_child method. It implements the high level abstraction
+RelationshipBrowser in accordance with the dependency inversion principle 
+which requires the low-level components to be dependent on high level abstractions.
+*/
+struct Relationships : RelationshipBrowser
 {
   vector<tuple<Person, Relationship, Person>> relations;
 
@@ -53,7 +71,7 @@ struct Relationships : RelationshipBrowser // low-level
     for (auto&& [first, rel, second] : relations)
     {
       if (first.name == name && rel == Relationship::parent)
-      {
+      { 
         result.push_back(second);
       }
     }
@@ -61,7 +79,15 @@ struct Relationships : RelationshipBrowser // low-level
   }
 };
 
-struct Research // high-level module
+/* 
+ Research is a high-level module that composes the 
+ high level abstract class RelationshipBrowser - in 
+ accordance with the dependency inversion principle.
+
+ It's function is to find the relationships
+ Here as an example, we print the children of John 
+*/
+struct Research 
 {
   Research(RelationshipBrowser& browser)
   {

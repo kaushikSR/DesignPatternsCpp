@@ -2,7 +2,7 @@
 
 /* - Open for extension, closed for modification
    - A class is open if you can extend it, produce a subclass 
-     and do whatever you want with it—add new methods or fields, 
+     and do whatever you want with it — add new methods or fields, 
      override base behavior, etc. Some programming languages let 
     you restrict further extension of a class with special keywords, 
     such as final . After this, the class is no longer open. 
